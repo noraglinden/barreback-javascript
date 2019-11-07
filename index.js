@@ -3,8 +3,7 @@ const app = express()
 
 const PORT = 5000
 
-app.get('/', function (req, res) {
-  res.send('hello barreback')
-})
+// Define Routes
+app.use('/', require('./routes/core'))
 
-app.listen(PORT)
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
