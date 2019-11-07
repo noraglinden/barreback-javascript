@@ -1,4 +1,4 @@
-const { CLASSIC } = require('../classes/classTypes')
+const classConst = require('../classes/classTypes')
 
 const createExercise = req => {
   const {
@@ -20,8 +20,6 @@ const createExercise = req => {
     choreography,
   } = req.body
 
-  const defaultClassType = CLASSIC
-
   //Build Exercise Fields
   const exerciseFields = {}
 
@@ -40,21 +38,23 @@ const createExercise = req => {
   if (rotation) exerciseFields.rotation = rotation
   if (height) exerciseFields.height = height
   if (position) exerciseFields.position = position
-  if (pullOff !== null) exerciseFields.pullOff = pullOff
+  if (pullOff !== undefined) exerciseFields.pullOff = pullOff
   if (setUp) exerciseFields.setUp = setUp
   if (createdAt) exerciseFields.createdAt = createdAt
 
   //Set Exercise Active
-  if (typeof active == 'undefined') {
+  if (active === undefined) {
     exerciseFields.active = true
   } else {
     exerciseFields.active = active
   }
 
   //Set Class Type, default of Classic
-  classType
-    ? (exerciseFields.classType = classType)
-    : (exerciseFields.classType = defaultClassType)
+  if (classType === undefined) {
+    exerciseFields.classType = classConst.CLASSIC
+  } else {
+    exerciseFields.classType = classType
+  }
 
   return exerciseFields
 }
