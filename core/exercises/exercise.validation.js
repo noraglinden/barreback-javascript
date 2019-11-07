@@ -1,5 +1,5 @@
 const { body } = require('express-validator')
-const exConst = require('../../domain/exercises/exerciseConstants')
+const exConst = require('./exercise.constants')
 
 const REQUIRED = 'is required'
 const STRING = 'must be a string'

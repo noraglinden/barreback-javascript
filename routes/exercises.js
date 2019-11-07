@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { createExercise } = require('../domain/exercises/createExercise')
+const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
-const { createExerciseValidationRules } = require('./validation/exerciseRules')
-const { validate } = require('./validation/validation')
+const {
+  createExerciseValidationRules,
+} = require('../core/exercises/exercise.validation')
+const { validate } = require('./middleware/validation')
 
 router.get('/', (req, res) => {
   res.send('exercise route')
