@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
 })
 
 // Create a new Exercise
-//todo validation of entry
 //todo reduce duplicate exercises
 router.post(
   '/',
