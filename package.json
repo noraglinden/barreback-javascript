@@ -4,7 +4,8 @@
   "description": "\"REST API to plan Pure Barre classes\"",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index",
+    "server": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nora Harris",
@@ -13,5 +14,8 @@
     "config": "^3.2.4",
     "express": "^4.17.1",
     "mongoose": "^5.7.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
