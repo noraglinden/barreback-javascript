@@ -1,0 +1,18 @@
+module.exports = {
+  NAME: 'name',
+  ACTIVE: 'active',
+  QUARTER: 'quarter',
+  YEAR: 'year',
+  CREATED_AT: 'createdAt',
+  CLASS_TYPE: 'classType',
+  SECTION: 'section',
+  LOCATION: 'location',
+  DIRECTION: 'direction',
+  EQUIPMENT: 'equipment',
+  ROTATION: 'rotation',
+  HEIGHT: 'height',
+  POSITION: 'position',
+  PULL_OFF: 'pullOff',
+  SET_UP: 'setUp',
+  CHOREOGRAPHY: 'choreography',
+}
