@@ -11,7 +11,7 @@ const createClassRules = () => {
       .withMessage('Class Type is required'),
     body(classConstant.CLASS_TYPE)
       .isIn(classTypes.all)
-      .withMessage("Class Type must be of 'Empower', 'Reform', or 'Classic'"),
+      .withMessage(`Class Type must be of valid types: ${classTypes.all}`),
   ]
 }
 

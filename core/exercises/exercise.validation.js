@@ -1,6 +1,7 @@
 const { body } = require('express-validator')
 const exerciseConstant = require('./exercise.constants')
 const classTypes = require('../enums/classTypes')
+const classSections = require('../enums/classSections')
 
 const REQUIRED = 'is required'
 const STRING = 'must be a string'
@@ -37,8 +38,10 @@ const createExerciseRules = () => {
       .isEmpty()
       .withMessage(`${exerciseConstant.SECTION} ${REQUIRED}`),
     body(exerciseConstant.SECTION)
-      .isString()
-      .withMessage(`${exerciseConstant.SECTION} ${STRING}`),
+      .isIn(classSections.all)
+      .withMessage(
+        `${exerciseConstant.SECTION} must be of valid types: ${classSections.all}`
+      ),
     body(exerciseConstant.CHOREOGRAPHY)
       .not()
       .isEmpty()
@@ -83,8 +86,11 @@ const createExerciseRules = () => {
       .isBoolean()
       .withMessage(`${exerciseConstant.ACTIVE} ${BOOLEAN}`),
     body(exerciseConstant.CLASS_TYPE)
+      .optional()
       .isIn(classTypes.all)
-      .withMessage("Class Type must be of 'Empower', 'Reform', or 'Classic'"),
+      .withMessage(
+        `${exerciseConstant.CLASS_TYPE} must be of valid types: ${classTypes.all}`
+      ),
   ]
 }
 
