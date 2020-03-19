@@ -1,5 +1,5 @@
 const { body } = require('express-validator')
-const exConst = require('./exercise.constants')
+const exerciseConstant = require('./exercise.constants')
 
 const REQUIRED = 'is required'
 const STRING = 'must be a string'
@@ -7,84 +7,84 @@ const NUMERIC = 'must be numeric'
 const BOOLEAN = 'must be a boolean'
 
 //todo: check for optional createdAt is date
-const createExerciseValidationRules = () => {
+const createExerciseRules = () => {
   return [
-    body(exConst.NAME)
+    body(exerciseConstant.NAME)
       .not()
       .isEmpty()
-      .withMessage(`${exConst.NAME} ${REQUIRED}`),
-    body(exConst.NAME)
+      .withMessage(`${exerciseConstant.NAME} ${REQUIRED}`),
+    body(exerciseConstant.NAME)
       .isString()
-      .withMessage(`${exConst.NAME} ${STRING}`),
-    body(exConst.QUARTER)
+      .withMessage(`${exerciseConstant.NAME} ${STRING}`),
+    body(exerciseConstant.QUARTER)
       .not()
       .isEmpty()
-      .withMessage(`${exConst.QUARTER} ${REQUIRED}`),
-    body(exConst.QUARTER)
+      .withMessage(`${exerciseConstant.QUARTER} ${REQUIRED}`),
+    body(exerciseConstant.QUARTER)
       .isString()
-      .withMessage(`${exConst.QUARTER} ${STRING}`),
-    body(exConst.YEAR)
+      .withMessage(`${exerciseConstant.QUARTER} ${STRING}`),
+    body(exerciseConstant.YEAR)
       .not()
       .isEmpty()
-      .withMessage(`${exConst.YEAR} ${REQUIRED}`),
-    body(exConst.YEAR)
+      .withMessage(`${exerciseConstant.YEAR} ${REQUIRED}`),
+    body(exerciseConstant.YEAR)
       .isInt()
-      .withMessage(`${exConst.YEAR} ${NUMERIC}`),
-    body(exConst.SECTION)
+      .withMessage(`${exerciseConstant.YEAR} ${NUMERIC}`),
+    body(exerciseConstant.SECTION)
       .not()
       .isEmpty()
-      .withMessage(`${exConst.SECTION} ${REQUIRED}`),
-    body(exConst.SECTION)
+      .withMessage(`${exerciseConstant.SECTION} ${REQUIRED}`),
+    body(exerciseConstant.SECTION)
       .isString()
-      .withMessage(`${exConst.SECTION} ${STRING}`),
-    body(exConst.CHOREOGRAPHY)
+      .withMessage(`${exerciseConstant.SECTION} ${STRING}`),
+    body(exerciseConstant.CHOREOGRAPHY)
       .not()
       .isEmpty()
-      .withMessage(`${exConst.CHOREOGRAPHY} ${REQUIRED}`),
-    body(exConst.CHOREOGRAPHY)
+      .withMessage(`${exerciseConstant.CHOREOGRAPHY} ${REQUIRED}`),
+    body(exerciseConstant.CHOREOGRAPHY)
       .isString()
-      .withMessage(`${exConst.CHOREOGRAPHY} ${STRING}`),
-    body(exConst.LOCATION)
+      .withMessage(`${exerciseConstant.CHOREOGRAPHY} ${STRING}`),
+    body(exerciseConstant.LOCATION)
       .optional()
       .isString()
-      .withMessage(`${exConst.LOCATION} ${STRING}`),
-    body(exConst.DIRECTION)
+      .withMessage(`${exerciseConstant.LOCATION} ${STRING}`),
+    body(exerciseConstant.DIRECTION)
       .optional()
       .isString()
-      .withMessage(`${exConst.DIRECTION} ${STRING}`),
-    body(exConst.EQUIPMENT)
+      .withMessage(`${exerciseConstant.DIRECTION} ${STRING}`),
+    body(exerciseConstant.EQUIPMENT)
       .optional()
       .isString()
-      .withMessage(`${exConst.EQUIPMENT} ${STRING}`),
-    body(exConst.ROTATION)
+      .withMessage(`${exerciseConstant.EQUIPMENT} ${STRING}`),
+    body(exerciseConstant.ROTATION)
       .optional()
       .isString()
-      .withMessage(`${exConst.ROTATION} ${STRING}`),
-    body(exConst.HEIGHT)
+      .withMessage(`${exerciseConstant.ROTATION} ${STRING}`),
+    body(exerciseConstant.HEIGHT)
       .optional()
       .isString()
-      .withMessage(`${exConst.HEIGHT} ${STRING}`),
-    body(exConst.POSITION)
+      .withMessage(`${exerciseConstant.HEIGHT} ${STRING}`),
+    body(exerciseConstant.POSITION)
       .optional()
       .isString()
-      .withMessage(`${exConst.POSITION} ${STRING}`),
-    body(exConst.PULL_OFF)
+      .withMessage(`${exerciseConstant.POSITION} ${STRING}`),
+    body(exerciseConstant.PULL_OFF)
       .optional()
       .isBoolean()
-      .withMessage(`${exConst.PULL_OFF} ${BOOLEAN}`),
-    body(exConst.SET_UP)
+      .withMessage(`${exerciseConstant.PULL_OFF} ${BOOLEAN}`),
+    body(exerciseConstant.SET_UP)
       .optional()
       .isString()
-      .withMessage(`${exConst.SET_UP} ${STRING}`),
-    body(exConst.ACTIVE)
+      .withMessage(`${exerciseConstant.SET_UP} ${STRING}`),
+    body(exerciseConstant.ACTIVE)
       .optional()
       .isBoolean()
-      .withMessage(`${exConst.ACTIVE} ${BOOLEAN}`),
-    body(exConst.CLASS_TYPE)
+      .withMessage(`${exerciseConstant.ACTIVE} ${BOOLEAN}`),
+    body(exerciseConstant.CLASS_TYPE)
       .optional()
       .isString()
-      .withMessage(`${exConst.CLASS_TYPE} ${STRING}`),
+      .withMessage(`${exerciseConstant.CLASS_TYPE} ${STRING}`),
   ]
 }
 
-module.exports.createExerciseValidationRules = createExerciseValidationRules
+module.exports.createExerciseRules = createExerciseRules
