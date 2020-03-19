@@ -1,5 +1,6 @@
 const { body } = require('express-validator')
 const exerciseConstant = require('./exercise.constants')
+const classTypes = require('../enums/classTypes')
 
 const REQUIRED = 'is required'
 const STRING = 'must be a string'
