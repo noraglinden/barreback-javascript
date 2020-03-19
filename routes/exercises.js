@@ -8,8 +8,16 @@ const errorMessages = require('../error/errorMessages')
 
 // Get all Exercises
 router.get('/', async (req, res) => {
-  const exercises = await Exercise.find()
-  res.json(exercises)
+  try {
+    const exercises = await Exercise.find()
+    if (exercises === undefined || exercises.length == 0) {
+      res.json({ msg: 'No exercises found.' })
+    }
+    res.json(exercises)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+  }
 })
 
 // Get Exercise by Id
