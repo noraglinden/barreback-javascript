@@ -24,6 +24,7 @@ const createExercise = req => {
   const exerciseFields = {}
 
   //Set User Entry Required Fields
+  //todo: change exercise name to be combo of information
   exerciseFields.name = name
   exerciseFields.quarter = quarter
   exerciseFields.year = year
@@ -51,7 +52,7 @@ const createExercise = req => {
 
   //Set Class Type, default of Classic
   if (classType === undefined) {
-    exerciseFields.classType = classTypes.CLASSIC
+    exerciseFields.classType = classTypes.type.CLASSIC
   } else {
     exerciseFields.classType = classType
   }

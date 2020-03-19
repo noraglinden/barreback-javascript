@@ -83,7 +83,7 @@ const createExerciseRules = () => {
       .isBoolean()
       .withMessage(`${exerciseConstant.ACTIVE} ${BOOLEAN}`),
     body(exerciseConstant.CLASS_TYPE)
-      .isIn([classTypes.CLASSIC, classTypes.EMPOWER, classTypes.REFORM])
+      .isIn(classTypes.all)
       .withMessage("Class Type must be of 'Empower', 'Reform', or 'Classic'"),
   ]
 }
