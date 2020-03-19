@@ -13,5 +13,6 @@ const PORT = 5000
 // Define Routes
 app.use('/', require('./routes/core'))
 app.use('/exercises', require('./routes/exercises'))
+app.use('/classes', require('./routes/classes'))
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
