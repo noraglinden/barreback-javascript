@@ -1,4 +1,4 @@
-const classConst = require('../classes/classTypes')
+const classConst = require('../classes/class.constants')
 
 const createExercise = req => {
   const {
