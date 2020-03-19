@@ -7,6 +7,7 @@ const NUMERIC = 'must be numeric'
 const BOOLEAN = 'must be a boolean'
 
 //todo: check for optional createdAt is date
+//todo: make class type not case specific
 const createExerciseRules = () => {
   return [
     body(exerciseConstant.NAME)
@@ -81,9 +82,8 @@ const createExerciseRules = () => {
       .isBoolean()
       .withMessage(`${exerciseConstant.ACTIVE} ${BOOLEAN}`),
     body(exerciseConstant.CLASS_TYPE)
-      .optional()
-      .isString()
-      .withMessage(`${exerciseConstant.CLASS_TYPE} ${STRING}`),
+      .isIn([classTypes.CLASSIC, classTypes.EMPOWER, classTypes.REFORM])
+      .withMessage("Class Type must be of 'Empower', 'Reform', or 'Classic'"),
   ]
 }
 

@@ -1,4 +1,4 @@
-const classConst = require('../classes/class.constants')
+const classTypes = require('../enums/classTypes')
 
 const createExercise = req => {
   const {
@@ -51,7 +51,7 @@ const createExercise = req => {
 
   //Set Class Type, default of Classic
   if (classType === undefined) {
-    exerciseFields.classType = classConst.CLASSIC
+    exerciseFields.classType = classTypes.CLASSIC
   } else {
     exerciseFields.classType = classType
   }
