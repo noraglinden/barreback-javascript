@@ -2,6 +2,7 @@ const { body } = require('express-validator')
 const exerciseConstant = require('./exercise.constants')
 const classTypes = require('../enums/classTypes')
 const classSections = require('../enums/classSections')
+const quarters = require('../enums/quarters')
 
 const REQUIRED = 'is required'
 const STRING = 'must be a string'
@@ -24,8 +25,10 @@ const createExerciseRules = () => {
       .isEmpty()
       .withMessage(`${exerciseConstant.QUARTER} ${REQUIRED}`),
     body(exerciseConstant.QUARTER)
-      .isString()
-      .withMessage(`${exerciseConstant.QUARTER} ${STRING}`),
+      .isIn(quarters.all)
+      .withMessage(
+        `${exerciseConstant.QUARTER} must be of valid types: ${quarters.all}`
+      ),
     body(exerciseConstant.YEAR)
       .not()
       .isEmpty()
