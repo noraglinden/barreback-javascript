@@ -47,4 +47,8 @@ router.post('/', createExerciseRules(), validate, async (req, res) => {
   }
 })
 
+//todo edit exercise
+
+//todo delete exercise
+
 module.exports = router
