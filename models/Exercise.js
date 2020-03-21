@@ -59,6 +59,9 @@ const ExerciseSchema = new mongoose.Schema({
   pullOff: {
     type: Boolean,
   },
+  twoSided: {
+    type: Boolean,
+  },
   setUp: {
     type: String,
   },

@@ -54,6 +54,11 @@ const exerciseHeights = require('../enums/exerciseHeights')
  *  - Required for Thighs, Arms & Legs, and Seat.
  *  - Optional for all other sections.
  *  - If entered, must be a boolean.
+ *
+ * Two Sided
+ *  - Required for Thighs
+ *  - Optional for all other sections
+ *  - If entered, must be a boolean
  */
 
 //todo: check for optional createdAt is date
@@ -95,6 +100,9 @@ const createExerciseRules = () => {
     //Specific - Pull Off
     pullOffOptionalRules,
     pullOffRequiredRules,
+    //Specific - Two Sided
+    twoSidedOptionalRules,
+    twoSidedRequiredRules,
   ]
 }
 
@@ -332,5 +340,32 @@ const pullOffRequiredRules = body(exerciseConstant.PULL_OFF)
   )
   .isBoolean()
   .withMessage(`${exerciseConstant.PULL_OFF} ${BOOLEAN}`)
+
+/***
+ * Specific Rules - Two Sided
+ */
+
+//Two Sided is not required for all sections but must be a boolean
+const twoSidedOptionalRules = body(exerciseConstant.TWO_SIDED)
+  .if(
+    body(exerciseConstant.SECTION).isIn(
+      classSections.sectionDoesNotRequireTwoSided
+    )
+  )
+  .optional()
+  .isBoolean()
+  .withMessage(`${exerciseConstant.TWO_SIDED} ${BOOLEAN}`)
+
+//Two Sided is required for some sections and must be a boolean
+const twoSidedRequiredRules = body(exerciseConstant.TWO_SIDED)
+  .if(
+    body(exerciseConstant.SECTION).isIn(classSections.sectionRequiresTwoSided)
+  )
+  .exists()
+  .withMessage(
+    `${exerciseConstant.TWO_SIDED} ${REQUIRED} for sections: ${classSections.sectionRequiresTwoSided} and ${BOOLEAN}`
+  )
+  .isBoolean()
+  .withMessage(`${exerciseConstant.TWO_SIDED} ${BOOLEAN}`)
 
 module.exports.createExerciseRules = createExerciseRules

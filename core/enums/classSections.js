@@ -48,6 +48,12 @@ const sectionDoesNotRequirePullOff = all.filter(section => {
   return !sectionRequiresPullOff.includes(section)
 })
 
+const sectionRequiresTwoSided = [section.THIGHS]
+
+const sectionDoesNotRequireTwoSided = all.filter(section => {
+  return !sectionRequiresTwoSided.includes(section)
+})
+
 module.exports = {
   section,
   all,
@@ -55,4 +61,6 @@ module.exports = {
   sectionDoesNotRequirePosition,
   sectionRequiresPullOff,
   sectionDoesNotRequirePullOff,
+  sectionRequiresTwoSided,
+  sectionDoesNotRequireTwoSided,
 }

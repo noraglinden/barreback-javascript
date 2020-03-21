@@ -1,5 +1,4 @@
 const classTypes = require('../enums/classTypes')
-const Position = require('../../models/Position')
 
 const createExercise = (req, maybePosition) => {
   const {
@@ -16,6 +15,7 @@ const createExercise = (req, maybePosition) => {
     rotation,
     height,
     pullOff,
+    twoSided,
     setUp,
     choreography,
   } = req.body
@@ -56,10 +56,12 @@ const createExercise = (req, maybePosition) => {
   //Set User Entry Optional Fields
   if (location) exerciseFields.location = location
   if (direction) exerciseFields.direction = direction
+  //todo why is equipment always being added as an empty list
   if (equipment) exerciseFields.equipment = equipment
   if (rotation) exerciseFields.rotation = rotation
   if (height) exerciseFields.height = height
   if (pullOff !== undefined) exerciseFields.pullOff = pullOff
+  if (twoSided !== undefined) exerciseFields.twoSided = twoSided
   if (setUp) exerciseFields.setUp = setUp
   if (createdAt) exerciseFields.createdAt = createdAt
 
