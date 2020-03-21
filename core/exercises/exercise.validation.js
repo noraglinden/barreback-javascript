@@ -326,7 +326,7 @@ const pullOffOptionalRules = body(exerciseConstant.PULL_OFF)
 //Pull off is required for some sections and must be a boolean
 const pullOffRequiredRules = body(exerciseConstant.PULL_OFF)
   .if(body(exerciseConstant.SECTION).isIn(classSections.sectionRequiresPullOff))
-  .exists({ checkFalsy: true })
+  .exists()
   .withMessage(
     `${exerciseConstant.PULL_OFF} ${REQUIRED} for sections: ${classSections.sectionRequiresPullOff} and ${BOOLEAN}`
   )
