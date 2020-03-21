@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     res.json(classes)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
@@ -29,7 +29,7 @@ router.post('/', createClassRules(), validate, async (req, res) => {
     res.json(newClass)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
