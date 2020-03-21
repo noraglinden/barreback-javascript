@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
+const Position = require('../models/Position')
 const { createExerciseRules } = require('../core/exercises/exercise.validation')
 const { validate } = require('./middleware/validation')
 const errorMessages = require('../error/errorMessages')
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
     res.json(exercises)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
@@ -28,7 +29,7 @@ router.get('/:exerciseId', async (req, res) => {
     const exerciseOption = await Exercise.findById(exerciseId)
 
     if (!exerciseOption) {
-      res.sendStatus(404).json({ msg: `${notFoundMsg}` })
+      res.status(404).json({ msg: `${notFoundMsg}` })
     }
 
     res.json(exerciseOption)
@@ -37,7 +38,7 @@ router.get('/:exerciseId', async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: `${notFoundMsg}` })
     }
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
@@ -45,13 +46,23 @@ router.get('/:exerciseId', async (req, res) => {
 //todo reduce duplicate exercises
 router.post('/', createExerciseRules(), validate, async (req, res) => {
   try {
-    const exerciseFields = createExercise(req)
+    const positionName = req.body.position
+
+    const maybePosition = await Position.findOne({ name: positionName })
+
+    if (positionName && !maybePosition) {
+      return res
+        .status(404)
+        .json({ msg: `No position found for ${positionName}` })
+    }
+
+    const exerciseFields = createExercise(req, maybePosition)
     newExercise = new Exercise(exerciseFields)
     await newExercise.save()
     res.json(newExercise)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
