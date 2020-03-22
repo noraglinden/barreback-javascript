@@ -30,20 +30,7 @@ const createExercise = (req, maybePosition) => {
   exerciseFields.year = year
   exerciseFields.section = section
   exerciseFields.choreography = choreography
-
-  //Set Exercise Active
-  if (active === undefined) {
-    exerciseFields.active = true
-  } else {
-    exerciseFields.active = active
-  }
-
-  //Set Class Type, default of Classic
-  if (classType === undefined) {
-    exerciseFields.classType = classTypes.type.CLASSIC
-  } else {
-    exerciseFields.classType = classType
-  }
+  exerciseFields.classType = classType
 
   //Set optional position
   if (maybePosition) {
@@ -54,6 +41,7 @@ const createExercise = (req, maybePosition) => {
   }
 
   //Set User Entry Optional Fields
+  if (active) exerciseFields.active = active
   if (location) exerciseFields.location = location
   if (direction) exerciseFields.direction = direction
   //todo why is equipment always being added as an empty list

@@ -28,13 +28,8 @@ const sectionRequiresDirection = [
   clazz.section.BACK_DANCING,
 ]
 
-const sectionDoesNotRequireDirection = clazz.all.filter(section => {
-  return !sectionRequiresDirection.includes(section)
-})
-
 module.exports = {
   direction,
   all,
   sectionRequiresDirection,
-  sectionDoesNotRequireDirection,
 }

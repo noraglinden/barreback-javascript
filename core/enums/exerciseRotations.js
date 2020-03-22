@@ -13,13 +13,8 @@ const sectionRequiresRotation = [
   clazz.section.SEAT,
 ]
 
-const sectionDoesNotRequireRotation = clazz.all.filter(section => {
-  return !sectionRequiresRotation.includes(section)
-})
-
 module.exports = {
   rotation,
   all,
   sectionRequiresRotation,
-  sectionDoesNotRequireRotation,
 }

@@ -34,33 +34,18 @@ const sectionRequiresPosition = [
   section.ABS,
 ]
 
-const sectionDoesNotRequirePosition = all.filter(section => {
-  return !sectionRequiresPosition.includes(section)
-})
-
 const sectionRequiresPullOff = [
   section.THIGHS,
   section.ARMS_AND_LEGS,
   section.SEAT,
 ]
 
-const sectionDoesNotRequirePullOff = all.filter(section => {
-  return !sectionRequiresPullOff.includes(section)
-})
-
 const sectionRequiresTwoSided = [section.THIGHS]
-
-const sectionDoesNotRequireTwoSided = all.filter(section => {
-  return !sectionRequiresTwoSided.includes(section)
-})
 
 module.exports = {
   section,
   all,
   sectionRequiresPosition,
-  sectionDoesNotRequirePosition,
   sectionRequiresPullOff,
-  sectionDoesNotRequirePullOff,
   sectionRequiresTwoSided,
-  sectionDoesNotRequireTwoSided,
 }

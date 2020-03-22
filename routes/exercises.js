@@ -56,7 +56,7 @@ const getPosition = async (req, res) => {
 
 // Create a new Exercise
 //todo reduce duplicate exercises
-router.post('/', createExerciseRules(), validate, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const maybePosition = await getPosition(req, res)
     const exerciseFields = createExercise(req, maybePosition)
@@ -65,6 +65,18 @@ router.post('/', createExerciseRules(), validate, async (req, res) => {
     res.json(newExercise)
   } catch (err) {
     console.log(err)
+
+    const errorMessages = []
+    if (err.errors) {
+      Object.values(err.errors).map(error =>
+        errorMessages.push({ [error.path]: error.message })
+      )
+    }
+
+    if (errorMessages !== 0) {
+      return res.status(400).json({ errors: errorMessages })
+    }
+
     res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
