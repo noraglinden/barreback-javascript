@@ -56,6 +56,7 @@ const getPosition = async (req, res) => {
 
 // Create a new Exercise
 //todo reduce duplicate exercises
+//todo create more than one Exercise at a time
 router.post('/', async (req, res) => {
   try {
     const maybePosition = await getPosition(req, res)
