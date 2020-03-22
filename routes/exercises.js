@@ -2,14 +2,21 @@ const express = require('express')
 const router = express.Router()
 const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
-const { createExerciseRules } = require('../core/exercises/exercise.validation')
-const { validate } = require('./middleware/validation')
+const Position = require('../models/Position')
 const errorMessages = require('../error/errorMessages')
 
 // Get all Exercises
 router.get('/', async (req, res) => {
-  const exercises = await Exercise.find()
-  res.json(exercises)
+  try {
+    const exercises = await Exercise.find()
+    if (exercises === undefined || exercises.length == 0) {
+      res.json({ msg: 'No exercises found.' })
+    }
+    res.json(exercises)
+  } catch (err) {
+    console.log(err)
+    res.status(500).send(errorMessages.serverErrorMessage)
+  }
 })
 
 // Get Exercise by Id
@@ -20,7 +27,7 @@ router.get('/:exerciseId', async (req, res) => {
     const exerciseOption = await Exercise.findById(exerciseId)
 
     if (!exerciseOption) {
-      res.sendStatus(404).json({ msg: `${notFoundMsg}` })
+      res.status(404).json({ msg: `${notFoundMsg}` })
     }
 
     res.json(exerciseOption)
@@ -29,22 +36,54 @@ router.get('/:exerciseId', async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: `${notFoundMsg}` })
     }
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
 
+const getPosition = async (req, res) => {
+  const positionName = req.body.position
+
+  const maybePosition = await Position.findOne({ name: positionName })
+
+  if (positionName && !maybePosition) {
+    return res
+      .status(404)
+      .json({ msg: `No position found for ${positionName}` })
+  }
+
+  return maybePosition
+}
+
 // Create a new Exercise
 //todo reduce duplicate exercises
-router.post('/', createExerciseRules(), validate, async (req, res) => {
+//todo create more than one Exercise at a time
+router.post('/', async (req, res) => {
   try {
-    const exerciseFields = createExercise(req)
+    const maybePosition = await getPosition(req, res)
+    const exerciseFields = createExercise(req, maybePosition)
     newExercise = new Exercise(exerciseFields)
     await newExercise.save()
     res.json(newExercise)
   } catch (err) {
     console.log(err)
-    res.sendStatus(500).send(errorMessages.serverErrorMessage)
+
+    const errorMessages = []
+    if (err.errors) {
+      Object.values(err.errors).map(error =>
+        errorMessages.push({ [error.path]: error.message })
+      )
+    }
+
+    if (errorMessages !== 0) {
+      return res.status(400).json({ errors: errorMessages })
+    }
+
+    res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
+
+//todo edit exercise
+
+//todo delete exercise
 
 module.exports = router

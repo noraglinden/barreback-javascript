@@ -1,6 +1,6 @@
-const classConst = require('../classes/classTypes')
+const classTypes = require('../enums/classTypes')
 
-const createExercise = req => {
+const createExercise = (req, maybePosition) => {
   const {
     name,
     active,
@@ -14,8 +14,8 @@ const createExercise = req => {
     equipment,
     rotation,
     height,
-    position,
     pullOff,
+    twoSided,
     setUp,
     choreography,
   } = req.body
@@ -24,37 +24,34 @@ const createExercise = req => {
   const exerciseFields = {}
 
   //Set User Entry Required Fields
+  //todo: change exercise name to be combo of information
   exerciseFields.name = name
   exerciseFields.quarter = quarter
   exerciseFields.year = year
   exerciseFields.section = section
   exerciseFields.choreography = choreography
+  exerciseFields.classType = classType
+
+  //Set optional position
+  if (maybePosition) {
+    const exercisePosition = {}
+    exercisePosition.id = maybePosition._id
+    exercisePosition.name = maybePosition.name
+    exerciseFields.position = exercisePosition
+  }
 
   //Set User Entry Optional Fields
+  if (active) exerciseFields.active = active
   if (location) exerciseFields.location = location
   if (direction) exerciseFields.direction = direction
-  if (equipment)
-    exerciseFields.equipment = equipment.split(',').map(item => item.trim())
+  //todo why is equipment always being added as an empty list
+  if (equipment) exerciseFields.equipment = equipment
   if (rotation) exerciseFields.rotation = rotation
   if (height) exerciseFields.height = height
-  if (position) exerciseFields.position = position
   if (pullOff !== undefined) exerciseFields.pullOff = pullOff
+  if (twoSided !== undefined) exerciseFields.twoSided = twoSided
   if (setUp) exerciseFields.setUp = setUp
   if (createdAt) exerciseFields.createdAt = createdAt
-
-  //Set Exercise Active
-  if (active === undefined) {
-    exerciseFields.active = true
-  } else {
-    exerciseFields.active = active
-  }
-
-  //Set Class Type, default of Classic
-  if (classType === undefined) {
-    exerciseFields.classType = classConst.CLASSIC
-  } else {
-    exerciseFields.classType = classType
-  }
 
   return exerciseFields
 }

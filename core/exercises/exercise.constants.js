@@ -13,6 +13,7 @@ module.exports = {
   HEIGHT: 'height',
   POSITION: 'position',
   PULL_OFF: 'pullOff',
+  TWO_SIDED: 'twoSided',
   SET_UP: 'setUp',
   CHOREOGRAPHY: 'choreography',
 }
