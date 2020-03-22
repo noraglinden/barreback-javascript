@@ -2,10 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
-const { createExerciseRules } = require('../core/exercises/exercise.validation')
-const { validate } = require('./middleware/validation')
+const Position = require('../models/Position')
 const errorMessages = require('../error/errorMessages')
-const { getPosition } = require('../core/positions/getPosition')
 
 // Get all Exercises
 router.get('/', async (req, res) => {
@@ -42,11 +40,25 @@ router.get('/:exerciseId', async (req, res) => {
   }
 })
 
+const getPosition = async (req, res) => {
+  const positionName = req.body.position
+
+  const maybePosition = await Position.findOne({ name: positionName })
+
+  if (positionName && !maybePosition) {
+    return res
+      .status(404)
+      .json({ msg: `No position found for ${positionName}` })
+  }
+
+  return maybePosition
+}
+
 // Create a new Exercise
 //todo reduce duplicate exercises
 router.post('/', createExerciseRules(), validate, async (req, res) => {
   try {
-    const maybePosition = await getPosition(req)
+    const maybePosition = await getPosition(req, res)
     const exerciseFields = createExercise(req, maybePosition)
     newExercise = new Exercise(exerciseFields)
     await newExercise.save()
