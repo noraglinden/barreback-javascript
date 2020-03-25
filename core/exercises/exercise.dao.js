@@ -1,4 +1,7 @@
-const createExercise = (req, maybePosition) => {
+const Exercise = require('../../models/Exercise')
+const { notFoundMessage } = require('../../error/errorMessages')
+
+const createExercise = async (req, maybePosition) => {
   const {
     name,
     active,
@@ -51,7 +54,48 @@ const createExercise = (req, maybePosition) => {
   if (setUp) exerciseFields.setUp = setUp
   if (createdAt) exerciseFields.createdAt = createdAt
 
-  return exerciseFields
+  newExercise = new Exercise(exerciseFields)
+
+  await newExercise.save()
+
+  return newExercise
 }
 
-module.exports.createExercise = createExercise
+const getExercises = async queryParams => {
+  const exercises = await Exercise.find(queryParams)
+
+  if (exercises === undefined || exercises.length == 0) {
+    throw new Error('No exercises found.')
+  }
+
+  return exercises
+}
+
+const getExerciseById = async exerciseId => {
+  const exerciseOption = await Exercise.findById(exerciseId)
+
+  if (!exerciseOption) {
+    throw new Error(notFoundMessage('exercise', exerciseId))
+  }
+
+  return exerciseOption
+}
+
+const hardDeleteExerciseById = async exerciseId => {
+  const exerciseToDelete = await Exercise.deleteOne({ _id: exerciseId })
+
+  if (exerciseToDelete.deletedCount === 0) {
+    throw new Error(notFoundMessage('exercise', exerciseId))
+  }
+
+  return {
+    msg: `Successfully deleted ${exerciseToDelete.deletedCount} exercise: ${exerciseId}`,
+  }
+}
+
+module.exports = {
+  createExercise: createExercise,
+  getExercises: getExercises,
+  getExerciseById: getExerciseById,
+  hardDeleteExerciseById: hardDeleteExerciseById,
+}

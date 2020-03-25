@@ -9,7 +9,7 @@ const getErrorMessages = err => {
 
   if (err.message && err.kind === 'ObjectId') {
     errorMessages.push({ msg: `Id ${err.value} is not a valid ObjectId.` })
-  } else if (err.message) {
+  } else if (!err.errors && err.message) {
     errorMessages.push({ msg: err.message })
   }
 
