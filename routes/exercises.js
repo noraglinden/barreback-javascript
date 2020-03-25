@@ -5,10 +5,10 @@ const Exercise = require('../models/Exercise')
 const Position = require('../models/Position')
 const errorMessages = require('../error/errorMessages')
 
-// Get all Exercises
+// Get all Exercises with optional query params
 router.get('/', async (req, res) => {
   try {
-    const exercises = await Exercise.find()
+    const exercises = await Exercise.find(req.query)
     if (exercises === undefined || exercises.length == 0) {
       res.json({ msg: 'No exercises found.' })
     }
@@ -40,6 +40,7 @@ router.get('/:exerciseId', async (req, res) => {
   }
 })
 
+//todo throw error and pass and move this to a getPosition namespace
 const getPosition = async (req, res) => {
   const positionName = req.body.position
 
@@ -84,6 +85,26 @@ router.post('/', async (req, res) => {
 
 //todo edit exercise
 
-//todo delete exercise
+//todo: add auth and potentially hard and soft delete - add deleted field
+//todo delete exercise by Id
+router.delete('/:exerciseId', async (req, res) => {
+  const exerciseId = req.params.exerciseId
+  const notFoundMsg = errorMessages.notFoundMessage('exercise', exerciseId)
+  try {
+    const deletedOption = await Exercise.deleteOne({ _id: exerciseId })
+
+    if (!deletedOption) {
+      res.status(404).json({ msg: `${notFoundMsg}` })
+    }
+
+    res.json(deletedOption)
+  } catch (err) {
+    console.log(err)
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: `${notFoundMsg}` })
+    }
+    res.status(500).send(errorMessages.serverErrorMessage)
+  }
+})
 
 module.exports = router
