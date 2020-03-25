@@ -3,7 +3,7 @@ const router = express.Router()
 const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
 const errorMessages = require('../error/errorMessages')
-const { getPosition } = require('../core/positions/getPosition')
+const { getPositionByName } = require('../core/positions/position.dao')
 
 // Get all Exercises with optional query params
 router.get('/', async (req, res) => {
@@ -45,7 +45,7 @@ router.get('/:exerciseId', async (req, res) => {
 //todo create more than one Exercise at a time
 router.post('/', async (req, res) => {
   try {
-    const maybePosition = await getPosition(req.body.position)
+    const maybePosition = await getPositionByName(req.body.position)
     const exerciseFields = createExercise(req, maybePosition)
     newExercise = new Exercise(exerciseFields)
     await newExercise.save()
