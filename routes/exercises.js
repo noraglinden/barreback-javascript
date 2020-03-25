@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { createExercise } = require('../core/exercises/createExercise')
 const Exercise = require('../models/Exercise')
-const Position = require('../models/Position')
 const errorMessages = require('../error/errorMessages')
+const { getPosition } = require('../core/positions/getPosition')
 
 // Get all Exercises with optional query params
 router.get('/', async (req, res) => {
@@ -40,27 +40,12 @@ router.get('/:exerciseId', async (req, res) => {
   }
 })
 
-//todo throw error and pass and move this to a getPosition namespace
-const getPosition = async (req, res) => {
-  const positionName = req.body.position
-
-  const maybePosition = await Position.findOne({ name: positionName })
-
-  if (positionName && !maybePosition) {
-    return res
-      .status(404)
-      .json({ msg: `No position found for ${positionName}` })
-  }
-
-  return maybePosition
-}
-
 // Create a new Exercise
 //todo reduce duplicate exercises
 //todo create more than one Exercise at a time
 router.post('/', async (req, res) => {
   try {
-    const maybePosition = await getPosition(req, res)
+    const maybePosition = await getPosition(req.body.position)
     const exerciseFields = createExercise(req, maybePosition)
     newExercise = new Exercise(exerciseFields)
     await newExercise.save()
@@ -69,10 +54,15 @@ router.post('/', async (req, res) => {
     console.log(err)
 
     const errorMessages = []
+
     if (err.errors) {
       Object.values(err.errors).map(error =>
         errorMessages.push({ [error.path]: error.message })
       )
+    }
+
+    if (err.message) {
+      errorMessages.push({ error: err.message })
     }
 
     if (errorMessages !== 0) {
