@@ -1,5 +1,3 @@
-const classTypes = require('../enums/classTypes')
-
 const createExercise = (req, maybePosition) => {
   const {
     name,
