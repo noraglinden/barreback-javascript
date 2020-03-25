@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const classTypes = require('../core/enums/classTypes')
 
 //todo add Schedule info
 
@@ -16,6 +17,7 @@ const ClassSchema = new mongoose.Schema({
   classType: {
     type: String,
     required: true,
+    enum: classTypes.all,
   },
   warmUp: {
     exercise: {

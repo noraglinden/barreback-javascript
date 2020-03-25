@@ -1,21 +1,23 @@
 const express = require('express')
 const router = express.Router()
-const Class = require('../models/Class')
 const errorMessages = require('../error/errorMessages')
 const { validate } = require('./middleware/validation')
 const { createClassRules } = require('../core/classes/class.validation')
-const { createClass } = require('../core/classes/createClass')
+const { createClass, getClasses } = require('../core/classes/class.dao')
 
 // Get all Classes
 router.get('/', async (req, res) => {
   try {
-    const classes = await Class.find()
-    if (classes === undefined || classes.length === 0) {
-      res.json({ msg: 'No classes found.' })
-    }
+    const classes = await getClasses()
     res.json(classes)
   } catch (err) {
     console.log(err)
+
+    const messages = errorMessages.getErrorMessages(err)
+    if (messages !== 0) {
+      return res.status(400).json({ errors: messages })
+    }
+
     res.status(500).send(errorMessages.serverErrorMessage)
   }
 })
@@ -23,9 +25,7 @@ router.get('/', async (req, res) => {
 // Create a new Class
 router.post('/', createClassRules(), validate, async (req, res) => {
   try {
-    const classFields = createClass(req)
-    newClass = new Class(classFields)
-    await newClass.save()
+    const newClass = await createClass(req)
     res.json(newClass)
   } catch (err) {
     console.log(err)
