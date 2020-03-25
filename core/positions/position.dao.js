@@ -44,9 +44,22 @@ const getPositions = async () => {
   return positions
 }
 
+const hardDeletePositionById = async positionId => {
+  const positionToDelete = await Position.deleteOne({ _id: positionId })
+
+  if (positionToDelete.deletedCount === 0) {
+    throw new Error(notFoundMessage('position', positionId))
+  }
+
+  return {
+    msg: `Successfully deleted ${positionToDelete.deletedCount} position: ${positionId}`,
+  }
+}
+
 module.exports = {
   createPosition: createPosition,
   getPositionByName: getPositionByName,
   getPositions: getPositions,
   getPositionById: getPositionById,
+  hardDeletePositionById: hardDeletePositionById,
 }

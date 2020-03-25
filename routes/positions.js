@@ -7,6 +7,7 @@ const {
   createPosition,
   getPositions,
   getPositionById,
+  hardDeletePositionById,
 } = require('../core/positions/position.dao')
 
 //Get all positions
@@ -62,5 +63,20 @@ router.post('/', createPositionRules(), validate, async (req, res) => {
 })
 
 //todo delete position
+router.delete('/:positionId', async (req, res) => {
+  try {
+    const deleteMessage = await hardDeletePositionById(req.params.positionId)
+    res.json(deleteMessage)
+  } catch (err) {
+    console.log(err)
+
+    const messages = errorMessages.getErrorMessages(err)
+    if (messages !== 0) {
+      return res.status(400).json({ errors: messages })
+    }
+
+    res.status(500).send(errorMessages.serverErrorMessage)
+  }
+})
 
 module.exports = router
