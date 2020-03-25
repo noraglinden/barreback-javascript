@@ -35,8 +35,19 @@ const getPositionById = async positionId => {
   return positionOption
 }
 
-const getPositions = async () => {
-  const positions = await Position.find()
+const getPositions = async queryParams => {
+  const searchParams = {}
+
+  if (
+    queryParams.nameExact !== undefined &&
+    queryParams.nameExact === 'false'
+  ) {
+    searchParams.$text = { $search: queryParams.name }
+  } else {
+    searchParams.name = queryParams.name
+  }
+
+  const positions = await Position.find(searchParams)
 
   if (positions === undefined || positions.length == 0) {
     throw new Error('No positions found.')

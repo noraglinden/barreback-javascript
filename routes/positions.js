@@ -14,7 +14,7 @@ const {
 //todo: figure out why only sending Not Found
 router.get('/', async (req, res) => {
   try {
-    const positions = await getPositions()
+    const positions = await getPositions(req.query)
     res.json(positions)
   } catch (err) {
     console.log(err)
