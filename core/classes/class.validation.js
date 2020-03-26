@@ -1,6 +1,7 @@
-const { body } = require('express-validator')
+const { body, param } = require('express-validator')
 const classConstant = require('./class.constants')
-const classTypes = require('../enums/classTypes')
+const { classTypes } = require('../enums/classTypes')
+const { classSectionChoices } = require('../../core/enums/classSectionChoices')
 
 //todo make not case specific
 const createClassRules = () => {
@@ -10,9 +11,23 @@ const createClassRules = () => {
       .isEmpty()
       .withMessage('Class Type is required'),
     body(classConstant.CLASS_TYPE)
-      .isIn(classTypes.all)
-      .withMessage(`Class Type must be of valid types: ${classTypes.all}`),
+      .isIn(classTypes)
+      .withMessage(`Class Type must be of valid types: ${classTypes}`),
   ]
 }
 
-module.exports.createClassRules = createClassRules
+const addExerciseToClassRules = () => {
+  return [
+    param('classSectionChoice')
+      .isIn(classSectionChoices)
+      .withMessage(`Must be a valid section choice: ${classSectionChoices}`),
+    body('exerciseId')
+      .exists({ checkFalsy: true })
+      .withMessage('Exercise Id is required.'),
+  ]
+}
+
+module.exports = {
+  createClassRules,
+  addExerciseToClassRules,
+}

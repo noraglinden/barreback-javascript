@@ -1,12 +1,16 @@
-const classStatuses = require('../enums/classStatuses')
+const { classStatus } = require('../enums/classStatuses')
 const Class = require('../../models/Class')
+const { notFoundMessage } = require('../../error/errorMessages')
+const {
+  checkAddExerciseToClassValid,
+} = require('../classes/planningLogic/addExerciseToClass')
 
 const createClass = async req => {
   //Build Class Fields
   const classFields = {}
 
   classFields.classType = req.body.classType
-  classFields.status = classStatuses.status.CREATED
+  classFields.status = classStatus.CREATED
 
   newClass = new Class(classFields)
   await newClass.save()
@@ -22,4 +26,34 @@ const getClasses = async () => {
   return classes
 }
 
-module.exports = { createClass: createClass, getClasses: getClasses }
+const getClassById = async classId => {
+  const clazz = await Class.findById(classId)
+
+  if (!clazz) {
+    throw new Error(notFoundMessage('class', classId))
+  }
+
+  return clazz
+}
+
+const addExerciseToClass = async (sectionChoice, clazz, exercise) => {
+  checkAddExerciseToClassValid(sectionChoice, clazz, exercise)
+
+  const updateFields = {
+    exercise: exercise._id,
+    name: exercise.name,
+    section: exercise.section,
+  }
+
+  const updatedClass = await Class.findByIdAndUpdate(
+    clazz._id,
+    {
+      [sectionChoice]: updateFields,
+    },
+    { new: true }
+  )
+
+  return updatedClass
+}
+
+module.exports = { createClass, getClasses, getClassById, addExerciseToClass }
