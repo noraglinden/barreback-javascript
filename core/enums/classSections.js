@@ -1,4 +1,4 @@
-const { classTypes } = require('../enums/classTypes')
+const { classType } = require('../enums/classTypes')
 const { classSectionChoice } = require('../enums/classSectionChoices')
 
 const classSection = {
@@ -18,7 +18,7 @@ const classSection = {
 const classSections = Object.values(classSection)
 
 const classSectionsByClassType = {
-  [classTypes.CLASSIC]: [
+  [classType.CLASSIC]: [
     classSection.WARM_UP,
     classSection.WEIGHT_WORK,
     classSection.THIGHS,
@@ -28,7 +28,7 @@ const classSectionsByClassType = {
     classSection.BACK_EXTENSION,
     classSection.BACK_DANCING,
   ],
-  [classTypes.REFORM]: [
+  [classType.REFORM]: [
     classSection.WARM_UP,
     classSection.TRICEPS,
     classSection.ARMS_AND_LEGS,
@@ -37,6 +37,7 @@ const classSectionsByClassType = {
     classSection.ABS,
     classSection.BACK_DANCING,
   ],
+  [classType.EMPOWER]: [],
 }
 
 //todo should this be in class seciton choices

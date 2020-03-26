@@ -1,4 +1,4 @@
-const { classTypes } = require('../enums/classTypes')
+const { classType } = require('../enums/classTypes')
 
 const classSectionChoice = {
   WARM_UP: 'warmUp',
@@ -21,8 +21,8 @@ const classSectionChoice = {
   BACK_DANCING: 'backDancing',
 }
 
-const sectionChoicesByClassType = {
-  [classTypes.CLASSIC]: [
+const classSectionChoicesByClassType = {
+  [classType.CLASSIC]: [
     classSectionChoice.WARM_UP,
     classSectionChoice.WEIGHT_WORK,
     classSectionChoice.THIGH_1,
@@ -37,7 +37,7 @@ const sectionChoicesByClassType = {
     classSectionChoice.BACK_EXTENSION,
     classSectionChoice.BACK_DANCING,
   ],
-  [classTypes.REFORM]: [
+  [classType.REFORM]: [
     classSectionChoice.WARM_UP,
     classSectionChoice.TRICEPS,
     classSectionChoice.ARMS_LEGS_1,
@@ -51,6 +51,7 @@ const sectionChoicesByClassType = {
     classSectionChoice.ABS_3,
     classSectionChoice.BACK_DANCING,
   ],
+  [classType.EMPOWER]: [],
 }
 
 const classSectionChoices = Object.values(classSectionChoice)
@@ -58,5 +59,5 @@ const classSectionChoices = Object.values(classSectionChoice)
 module.exports = {
   classSectionChoice,
   classSectionChoices,
-  sectionChoicesByClassType,
+  classSectionChoicesByClassType,
 }
