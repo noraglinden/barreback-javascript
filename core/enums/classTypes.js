@@ -4,6 +4,6 @@ const type = {
   EMPOWER: 'Empower',
 }
 
-const all = [type.CLASSIC, type.REFORM, type.EMPOWER]
+const all = Object.values(type)
 
 module.exports = { type, all }

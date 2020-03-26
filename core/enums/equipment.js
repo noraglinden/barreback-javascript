@@ -9,15 +9,6 @@ const equipment = {
   TOP_TUBES: 'top tubes',
 }
 
-const all = [
-  equipment.BALL,
-  equipment.DOUBLE_TUBE,
-  equipment.MAT,
-  equipment.WEIGHTS,
-  equipment.VELCRO_TUBE,
-  equipment.SLIDERS,
-  equipment.BOTTOM_TUBES,
-  equipment.TOP_TUBES,
-]
+const all = Object.values(equipment)
 
 module.exports = { equipment, all }

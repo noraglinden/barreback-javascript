@@ -6,7 +6,7 @@ const height = {
   LOW: 'low',
 }
 
-const all = [height.HIGH, height.MID, height.low]
+const all = Object.values(height)
 
 const sectionRequiresHeight = [clazz.section.SEAT]
 

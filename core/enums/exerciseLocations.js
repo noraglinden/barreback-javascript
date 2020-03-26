@@ -3,6 +3,6 @@ const location = {
   CENTER: 'Center',
 }
 
-const all = [location.BARRE, location.CENTER]
+const all = Object.values(location)
 
 module.exports = { location, all }

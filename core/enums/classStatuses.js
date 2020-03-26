@@ -4,6 +4,6 @@ const status = {
   COMPLETE: 'Planned',
 }
 
-const all = [status.CREATED, status.IN_PROGRESS, status.COMPLETE]
+const all = Object.values(status)
 
 module.exports = { status, all }

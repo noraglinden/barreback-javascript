@@ -12,19 +12,7 @@ const section = {
   BACK_DANCING: 'Back Dancing',
 }
 
-const all = [
-  section.WARM_UP,
-  section.TRICEPS,
-  section.WEIGHT_WORK,
-  section.THIGHS,
-  section.ARMS_AND_LEGS,
-  section.CORE,
-  section.SEAT,
-  section.CORE_FOCUS,
-  section.ABS,
-  section.BACK_EXTENSION,
-  section.BACK_DANCING,
-]
+const all = Object.values(section)
 
 const classicSections = [
   section.WARM_UP,

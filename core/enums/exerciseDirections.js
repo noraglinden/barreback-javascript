@@ -9,14 +9,7 @@ const direction = {
   OPPOSITE_SIDE: 'Opposite Side Mirror',
 }
 
-const all = [
-  direction.CENTER,
-  direction.BARRE,
-  direction.PROFILE,
-  direction.FRONT,
-  direction.SIDE,
-  direction.OPPOSITE_SIDE,
-]
+const all = Object.values(direction)
 
 const sectionRequiresDirection = [
   clazz.section.THIGHS,

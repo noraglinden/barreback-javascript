@@ -5,7 +5,7 @@ const rotation = {
   PARALLEL: 'parallel',
 }
 
-const all = [rotation.TURNOUT, rotation.PARALLEL]
+const all = Object.values(rotation)
 
 const sectionRequiresRotation = [
   clazz.section.THIGHS,
