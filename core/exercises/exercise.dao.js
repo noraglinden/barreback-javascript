@@ -94,8 +94,8 @@ const hardDeleteExerciseById = async exerciseId => {
 }
 
 module.exports = {
-  createExercise: createExercise,
-  getExercises: getExercises,
-  getExerciseById: getExerciseById,
-  hardDeleteExerciseById: hardDeleteExerciseById,
+  createExercise,
+  getExercises,
+  getExerciseById,
+  hardDeleteExerciseById,
 }

@@ -68,9 +68,9 @@ const hardDeletePositionById = async positionId => {
 }
 
 module.exports = {
-  createPosition: createPosition,
-  getPositionByName: getPositionByName,
-  getPositions: getPositions,
-  getPositionById: getPositionById,
-  hardDeletePositionById: hardDeletePositionById,
+  createPosition,
+  getPositionByName,
+  getPositions,
+  getPositionById,
+  hardDeletePositionById,
 }

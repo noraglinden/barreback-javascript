@@ -8,4 +8,4 @@ const createPositionRules = () => {
   ]
 }
 
-module.exports.createPositionRules = createPositionRules
+module.exports = { createPositionRules }
