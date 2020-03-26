@@ -5,6 +5,6 @@ const quarter = {
   Q4: 'Q4',
 }
 
-const all = Object.values(quarter)
+const quarters = Object.values(quarter)
 
-module.exports = { quarter, all }
+module.exports = { quarter, quarters }

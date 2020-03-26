@@ -1,17 +1,12 @@
-const clazz = require('./classSections')
-
-const height = {
+const exerciseHeight = {
   HIGH: 'high',
   MID: 'medium',
   LOW: 'low',
 }
 
-const all = Object.values(height)
-
-const sectionRequiresHeight = [clazz.section.SEAT]
+const exerciseHeights = Object.values(exerciseHeight)
 
 module.exports = {
-  height,
-  all,
-  sectionRequiresHeight,
+  exerciseHeight,
+  exerciseHeights,
 }

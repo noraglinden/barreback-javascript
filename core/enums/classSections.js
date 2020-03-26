@@ -1,4 +1,7 @@
-const section = {
+const { classTypes } = require('../enums/classTypes')
+const { classSectionChoice } = require('../enums/classSectionChoices')
+
+const classSection = {
   WARM_UP: 'Warm Up',
   TRICEPS: 'Triceps',
   WEIGHT_WORK: 'Weight Work',
@@ -12,51 +15,88 @@ const section = {
   BACK_DANCING: 'Back Dancing',
 }
 
-const all = Object.values(section)
+const classSections = Object.values(classSection)
 
-const classicSections = [
-  section.WARM_UP,
-  section.WEIGHT_WORK,
-  section.THIGHS,
-  section.SEAT,
-  section.CORE_FOCUS,
-  section.ABS,
-  section.BACK_EXTENSION,
-  section.BACK_DANCING,
-]
+const classSectionsByClassType = {
+  [classTypes.CLASSIC]: [
+    classSection.WARM_UP,
+    classSection.WEIGHT_WORK,
+    classSection.THIGHS,
+    classSection.SEAT,
+    classSection.CORE_FOCUS,
+    classSection.ABS,
+    classSection.BACK_EXTENSION,
+    classSection.BACK_DANCING,
+  ],
+  [classTypes.REFORM]: [
+    classSection.WARM_UP,
+    classSection.TRICEPS,
+    classSection.ARMS_AND_LEGS,
+    classSection.CORE,
+    classSection.SEAT,
+    classSection.ABS,
+    classSection.BACK_DANCING,
+  ],
+}
 
-const reformSections = [
-  section.WARM_UP,
-  section.TRICEPS,
-  section.ARMS_AND_LEGS,
-  section.CORE,
-  section.SEAT,
-  section.ABS,
-  section.BACK_DANCING,
-]
+//todo should this be in class seciton choices
+const classSectionChoicesByClassSection = {
+  [classSection.WARM_UP]: [classSectionChoice.WARM_UP],
+  [classSection.TRICEPS]: [classSectionChoice.TRICEPS],
+  [classSection.WEIGHT_WORK]: [classSectionChoice.WEIGHT_WORK],
+  [classSection.THIGHS]: [
+    classSectionChoice.THIGH_1,
+    classSectionChoice.THIGH_2,
+    classSectionChoice.THIGH_3,
+  ],
+  [classSection.ARMS_AND_LEGS]: [
+    classSectionChoice.ARMS_LEGS_1,
+    classSectionChoice.ARMS_LEGS_2,
+    classSectionChoice.ARMS_LEGS_3,
+  ],
+  [classSection.CORE]: [classSectionChoice.CORE],
+  [classSection.SEAT]: [classSectionChoice.SEAT_1, classSectionChoice.SEAT_2],
+  [classSection.CORE_FOCUS]: [classSectionChoice.CORE_FOCUS],
+  [classSection.ABS]: [
+    classSectionChoice.ABS_1,
+    classSectionChoice.ABS_2,
+    classSectionChoice.ABS_3,
+  ],
+  [classSection.BACK_EXTENSION]: [classSectionChoice.BACK_EXTENSION],
+  [classSection.BACK_DANCING]: [classSectionChoice.BACK_DANCING],
+}
 
-const sectionRequiresPosition = [
-  section.THIGHS,
-  section.ARMS_AND_LEGS,
-  section.SEAT,
-  section.CORE_FOCUS,
-  section.ABS,
-]
-
-const sectionRequiresPullOff = [
-  section.THIGHS,
-  section.ARMS_AND_LEGS,
-  section.SEAT,
-]
-
-const sectionRequiresTwoSided = [section.THIGHS]
+const classSectionsByDataRequirementNeeds = {
+  position: [
+    classSection.THIGHS,
+    classSection.ARMS_AND_LEGS,
+    classSection.SEAT,
+    classSection.CORE_FOCUS,
+    classSection.ABS,
+  ],
+  pullOff: [classSection.THIGHS, classSection.ARMS_AND_LEGS, classSection.SEAT],
+  twoSided: [classSection.THIGHS],
+  direction: [
+    classSection.THIGHS,
+    classSection.ARMS_AND_LEGS,
+    classSection.CORE,
+    classSection.SEAT,
+    classSection.CORE_FOCUS,
+    classSection.ABS,
+    classSection.BACK_DANCING,
+  ],
+  height: [classSection.SEAT],
+  rotation: [
+    classSection.THIGHS,
+    classSection.ARMS_AND_LEGS,
+    classSection.SEAT,
+  ],
+}
 
 module.exports = {
-  section,
-  all,
-  sectionRequiresPosition,
-  sectionRequiresPullOff,
-  sectionRequiresTwoSided,
-  classicSections,
-  reformSections,
+  classSection,
+  classSections,
+  classSectionsByDataRequirementNeeds,
+  classSectionsByClassType,
+  classSectionChoicesByClassSection,
 }

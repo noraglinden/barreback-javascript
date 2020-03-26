@@ -1,4 +1,4 @@
-const equipment = {
+const exerciseEquipment = {
   BALL: 'ball',
   DOUBLE_TUBE: 'double-tube',
   MAT: 'mat',
@@ -9,6 +9,6 @@ const equipment = {
   TOP_TUBES: 'top tubes',
 }
 
-const all = Object.values(equipment)
+const exerciseEquipmentItems = Object.values(exerciseEquipment)
 
-module.exports = { equipment, all }
+module.exports = { exerciseEquipment, exerciseEquipmentItems }

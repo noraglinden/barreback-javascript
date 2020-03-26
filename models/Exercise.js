@@ -1,12 +1,15 @@
 const mongoose = require('mongoose')
 const quarters = require('../core/enums/quarters')
-const sections = require('../core/enums/classSections')
-const classTypes = require('../core/enums/classTypes')
-const exerciseLocations = require('../core/enums/exerciseLocations')
-const exerciseRotations = require('../core/enums/exerciseRotations')
-const exerciseHeights = require('../core/enums/exerciseHeights')
-const exerciseDirections = require('../core/enums/exerciseDirections')
-const equipment = require('../core/enums/equipment')
+const {
+  classSections,
+  classSectionsByDataRequirementNeeds,
+} = require('../core/enums/classSections')
+const { classTypes } = require('../core/enums/classTypes')
+const { exerciseLocations } = require('../core/enums/exerciseLocations')
+const { exerciseRotations } = require('../core/enums/exerciseRotations')
+const { exerciseHeights } = require('../core/enums/exerciseHeights')
+const { exerciseDirections } = require('../core/enums/exerciseDirections')
+const { exerciseEquipmentItems } = require('../core/enums/equipment')
 const Schema = mongoose.Schema
 
 /***
@@ -79,7 +82,7 @@ const ExerciseSchema = new mongoose.Schema({
   section: {
     type: String,
     required: true,
-    enum: sections.all,
+    enum: classSections,
   },
   choreography: {
     type: String,
@@ -88,12 +91,12 @@ const ExerciseSchema = new mongoose.Schema({
   classType: {
     type: String,
     required: true,
-    enum: classTypes.all,
+    enum: classTypes,
   },
   location: {
     type: String,
     required: true,
-    enum: exerciseLocations.all,
+    enum: exerciseLocations,
   },
   active: {
     type: Boolean,
@@ -110,20 +113,20 @@ const ExerciseSchema = new mongoose.Schema({
   },
   equipment: {
     type: [String],
-    enum: equipment.all,
+    enum: exerciseEquipmentItems,
   },
   rotation: {
     type: String,
-    enum: exerciseRotations.all,
+    enum: exerciseRotations,
     required: function() {
-      return exerciseRotations.sectionRequiresRotation.includes(this.section)
+      return classSectionsByDataRequirementNeeds.rotation.includes(this.section)
     },
   },
   height: {
     type: String,
-    enum: exerciseHeights.all,
+    enum: exerciseHeights,
     required: function() {
-      return exerciseHeights.sectionRequiresHeight.includes(this.section)
+      return classSectionsByDataRequirementNeeds.height.includes(this.section)
     },
   },
   position: {
@@ -134,27 +137,31 @@ const ExerciseSchema = new mongoose.Schema({
     name: {
       type: String,
       required: function() {
-        return sections.sectionRequiresPosition.includes(this.section)
+        return classSectionsByDataRequirementNeeds.position.includes(
+          this.section
+        )
       },
     },
   },
   direction: {
     type: String,
-    enum: exerciseDirections.all,
+    enum: exerciseDirections,
     required: function() {
-      return exerciseDirections.sectionRequiresDirection.includes(this.section)
+      return classSectionsByDataRequirementNeeds.direction.includes(
+        this.section
+      )
     },
   },
   pullOff: {
     type: Boolean,
     required: function() {
-      return sections.sectionRequiresPullOff.includes(this.section)
+      return classSectionsByDataRequirementNeeds.pullOff.includes(this.section)
     },
   },
   twoSided: {
     type: Boolean,
     required: function() {
-      return sections.sectionRequiresTwoSided.includes(this.section)
+      return classSectionsByDataRequirementNeeds.twoSided.includes(this.section)
     },
   },
 })

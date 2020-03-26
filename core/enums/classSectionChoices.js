@@ -1,4 +1,6 @@
-const choices = {
+const { classTypes } = require('../enums/classTypes')
+
+const classSectionChoice = {
   WARM_UP: 'warmUp',
   TRICEPS: 'triceps',
   WEIGHT_WORK: 'weightWork',
@@ -19,9 +21,42 @@ const choices = {
   BACK_DANCING: 'backDancing',
 }
 
-const all = Object.values(choices)
+const sectionChoicesByClassType = {
+  [classTypes.CLASSIC]: [
+    classSectionChoice.WARM_UP,
+    classSectionChoice.WEIGHT_WORK,
+    classSectionChoice.THIGH_1,
+    classSectionChoice.THIGH_2,
+    classSectionChoice.THIGH_3,
+    classSectionChoice.SEAT_1,
+    classSectionChoice.SEAT_2,
+    classSectionChoice.CORE_FOCUS,
+    classSectionChoice.ABS_1,
+    classSectionChoice.ABS_2,
+    classSectionChoice.ABS_3,
+    classSectionChoice.BACK_EXTENSION,
+    classSectionChoice.BACK_DANCING,
+  ],
+  [classTypes.REFORM]: [
+    classSectionChoice.WARM_UP,
+    classSectionChoice.TRICEPS,
+    classSectionChoice.ARMS_LEGS_1,
+    classSectionChoice.ARMS_LEGS_2,
+    classSectionChoice.ARMS_LEGS_3,
+    classSectionChoice.CORE,
+    classSectionChoice.SEAT_1,
+    classSectionChoice.SEAT_2,
+    classSectionChoice.ABS_1,
+    classSectionChoice.ABS_2,
+    classSectionChoice.ABS_3,
+    classSectionChoice.BACK_DANCING,
+  ],
+}
+
+const classSectionChoices = Object.values(classSectionChoice)
 
 module.exports = {
-  choices,
-  all,
+  classSectionChoice,
+  classSectionChoices,
+  sectionChoicesByClassType,
 }

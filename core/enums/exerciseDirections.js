@@ -1,6 +1,4 @@
-const clazz = require('./classSections')
-
-const direction = {
+const exerciseDirection = {
   CENTER: 'Center',
   BARRE: 'Barre',
   PROFILE: 'Profile',
@@ -9,20 +7,9 @@ const direction = {
   OPPOSITE_SIDE: 'Opposite Side Mirror',
 }
 
-const all = Object.values(direction)
-
-const sectionRequiresDirection = [
-  clazz.section.THIGHS,
-  clazz.section.ARMS_AND_LEGS,
-  clazz.section.CORE,
-  clazz.section.SEAT,
-  clazz.section.CORE_FOCUS,
-  clazz.section.ABS,
-  clazz.section.BACK_DANCING,
-]
+const exerciseDirections = Object.values(exerciseDirection)
 
 module.exports = {
-  direction,
-  all,
-  sectionRequiresDirection,
+  exerciseDirection,
+  exerciseDirections,
 }

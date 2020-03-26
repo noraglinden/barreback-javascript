@@ -1,9 +1,9 @@
-const type = {
+const classType = {
   CLASSIC: 'Classic',
   REFORM: 'Reform',
   EMPOWER: 'Empower',
 }
 
-const all = Object.values(type)
+const classTypes = Object.values(classType)
 
-module.exports = { type, all }
+module.exports = { classType, classTypes }

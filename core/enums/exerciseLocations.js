@@ -1,8 +1,8 @@
-const location = {
+const exerciseLocation = {
   BARRE: 'Barre',
   CENTER: 'Center',
 }
 
-const all = Object.values(location)
+const exerciseLocations = Object.values(exerciseLocation)
 
-module.exports = { location, all }
+module.exports = { exerciseLocation, exerciseLocations }

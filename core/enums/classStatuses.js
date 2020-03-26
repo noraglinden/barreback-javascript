@@ -1,9 +1,9 @@
-const status = {
+const classStatus = {
   CREATED: 'Created',
   IN_PROGRESS: 'In Progress',
   COMPLETE: 'Planned',
 }
 
-const all = Object.values(status)
+const classStatuses = Object.values(classStatus)
 
-module.exports = { status, all }
+module.exports = { classStatus, classStatuses }

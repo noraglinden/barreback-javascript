@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const classTypes = require('../core/enums/classTypes')
+const { classTypes } = require('../core/enums/classTypes')
+const { classSection } = require('../core/enums/classSections')
 
 //todo add Schedule info
 
@@ -17,7 +18,7 @@ const ClassSchema = new mongoose.Schema({
   classType: {
     type: String,
     required: true,
-    enum: classTypes.all,
+    enum: classTypes,
   },
   warmUp: {
     exercise: {
@@ -26,6 +27,10 @@ const ClassSchema = new mongoose.Schema({
     },
     name: {
       type: String,
+    },
+    section: {
+      type: String,
+      enum: classSection.WARM_UP,
     },
   },
   triceps: {
